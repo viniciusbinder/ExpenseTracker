@@ -14,19 +14,11 @@
 			remoteGlobalIDString = 563E04032DC1167800428A63;
 			remoteInfo = ExpenseTracker;
 		};
-		563E041E2DC1167900428A63 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 563E03FC2DC1167800428A63 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 563E04032DC1167800428A63;
-			remoteInfo = ExpenseTracker;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		563E04042DC1167800428A63 /* ExpenseTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		563E04132DC1167900428A63 /* ExpenseTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExpenseTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		563E041D2DC1167900428A63 /* ExpenseTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExpenseTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -38,11 +30,6 @@
 		563E04162DC1167900428A63 /* ExpenseTrackerTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ExpenseTrackerTests;
-			sourceTree = "<group>";
-		};
-		563E04202DC1167900428A63 /* ExpenseTrackerUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ExpenseTrackerUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,13 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		563E041A2DC1167900428A63 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,7 +57,6 @@
 			children = (
 				563E04062DC1167800428A63 /* ExpenseTracker */,
 				563E04162DC1167900428A63 /* ExpenseTrackerTests */,
-				563E04202DC1167900428A63 /* ExpenseTrackerUITests */,
 				563E04052DC1167800428A63 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,7 +66,6 @@
 			children = (
 				563E04042DC1167800428A63 /* ExpenseTracker.app */,
 				563E04132DC1167900428A63 /* ExpenseTrackerTests.xctest */,
-				563E041D2DC1167900428A63 /* ExpenseTrackerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,29 +118,6 @@
 			productReference = 563E04132DC1167900428A63 /* ExpenseTrackerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		563E041C2DC1167900428A63 /* ExpenseTrackerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 563E042D2DC1167900428A63 /* Build configuration list for PBXNativeTarget "ExpenseTrackerUITests" */;
-			buildPhases = (
-				563E04192DC1167900428A63 /* Sources */,
-				563E041A2DC1167900428A63 /* Frameworks */,
-				563E041B2DC1167900428A63 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				563E041F2DC1167900428A63 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				563E04202DC1167900428A63 /* ExpenseTrackerUITests */,
-			);
-			name = ExpenseTrackerUITests;
-			packageProductDependencies = (
-			);
-			productName = ExpenseTrackerUITests;
-			productReference = 563E041D2DC1167900428A63 /* ExpenseTrackerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -177,10 +132,6 @@
 						CreatedOnToolsVersion = 16.3;
 					};
 					563E04122DC1167900428A63 = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = 563E04032DC1167800428A63;
-					};
-					563E041C2DC1167900428A63 = {
 						CreatedOnToolsVersion = 16.3;
 						TestTargetID = 563E04032DC1167800428A63;
 					};
@@ -202,7 +153,6 @@
 			targets = (
 				563E04032DC1167800428A63 /* ExpenseTracker */,
 				563E04122DC1167900428A63 /* ExpenseTrackerTests */,
-				563E041C2DC1167900428A63 /* ExpenseTrackerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -216,13 +166,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		563E04112DC1167900428A63 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		563E041B2DC1167900428A63 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -246,13 +189,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		563E04192DC1167900428A63 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -260,11 +196,6 @@
 			isa = PBXTargetDependency;
 			target = 563E04032DC1167800428A63 /* ExpenseTracker */;
 			targetProxy = 563E04142DC1167900428A63 /* PBXContainerItemProxy */;
-		};
-		563E041F2DC1167900428A63 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 563E04032DC1167800428A63 /* ExpenseTracker */;
-			targetProxy = 563E041E2DC1167900428A63 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -484,40 +415,6 @@
 			};
 			name = Release;
 		};
-		563E042E2DC1167900428A63 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5MSP4455P9;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.viniciusbinder.ExpenseTrackerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ExpenseTracker;
-			};
-			name = Debug;
-		};
-		563E042F2DC1167900428A63 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5MSP4455P9;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.viniciusbinder.ExpenseTrackerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ExpenseTracker;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -544,15 +441,6 @@
 			buildConfigurations = (
 				563E042B2DC1167900428A63 /* Debug */,
 				563E042C2DC1167900428A63 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		563E042D2DC1167900428A63 /* Build configuration list for PBXNativeTarget "ExpenseTrackerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				563E042E2DC1167900428A63 /* Debug */,
-				563E042F2DC1167900428A63 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
