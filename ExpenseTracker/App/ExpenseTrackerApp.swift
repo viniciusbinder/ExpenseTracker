@@ -13,17 +13,7 @@ struct ExpenseTrackerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            TabView {
-                ExpenseListScreen(viewModel: dependencies.makeExpenseListViewModel())
-                    .tabItem {
-                        Label("Expenses", systemImage: "list.bullet")
-                    }
-
-                CategoryListScreen(viewModel: dependencies.makeCategoryListViewModel())
-                    .tabItem {
-                        Label("Categories", systemImage: "folder")
-                    }
-            }
+            HomeScreen(dependencies: dependencies)
         }
     }
 }
