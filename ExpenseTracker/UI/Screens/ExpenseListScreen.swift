@@ -51,8 +51,16 @@ struct ExpenseListScreen: View {
             List {
                 ForEach(expenses) { expense in
                     ExpenseRow(expense: expense)
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                viewModel.deleteExpense(id: expense.id)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
                 }
             }
+            .animation(.easeInOut, value: expenses)
         }
     }
 }

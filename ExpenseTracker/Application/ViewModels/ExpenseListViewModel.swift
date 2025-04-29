@@ -47,7 +47,7 @@ final class ExpenseListViewModel {
         }
     }
 
-    func deleteExpense(id: UUID) async {
+    func deleteExpense(id: UUID) {
         Task {
             do {
                 try await service.deleteExpense(by: id)
