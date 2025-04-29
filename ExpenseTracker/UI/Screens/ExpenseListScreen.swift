@@ -20,20 +20,17 @@ struct ExpenseListScreen: View {
                 .navigationTitle("Expenses")
                 .toolbarTitleDisplayMode(.inline)
                 .toolbar {
-                    Button {
-                        // Placeholder
-                        viewModel.addExpense(
-                            amount: Double.random(in: 5 ... 100),
-                            date: Date(),
-                            categoryName: "Food",
-                            note: "Burger King"
-                        )
-                    } label: {
+                    Button(action: viewModel.openAddExpenseScreen) {
                         Image(systemName: "plus")
                     }
                 }
                 .onAppear {
                     viewModel.loadExpenses()
+                }
+                .sheet(isPresented: $viewModel.isAddingExpense) {
+                    if let addExpenseViewModel = viewModel.addExpenseViewModel {
+                        AddExpenseScreen(viewModel: addExpenseViewModel)
+                    }
                 }
         }
     }

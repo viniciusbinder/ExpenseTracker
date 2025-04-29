@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct HomeScreen: View {
-    private var dependencies: DependencyContainer
+    private var factory: ViewModelFactory
 
-    init(dependencies: DependencyContainer) {
-        self.dependencies = dependencies
+    init(factory: ViewModelFactory) {
+        self.factory = factory
     }
 
     var body: some View {
         TabView {
-            ExpenseListScreen(viewModel: dependencies.makeExpenseListViewModel())
+            ExpenseListScreen(viewModel: factory.makeExpenseListViewModel())
                 .tabItem {
                     Label("Expenses", systemImage: "list.bullet")
                 }
 
-            CategoryListScreen(viewModel: dependencies.makeCategoryListViewModel())
+            CategoryListScreen(viewModel: factory.makeCategoryListViewModel())
                 .tabItem {
                     Label("Categories", systemImage: "folder")
                 }
@@ -30,5 +30,5 @@ struct HomeScreen: View {
 }
 
 #Preview {
-    HomeScreen(dependencies: .init())
+    HomeScreen(factory: DependencyContainer())
 }

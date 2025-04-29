@@ -18,6 +18,8 @@ final class ExpenseListViewModel {
     }
 
     var state: State = .empty
+    var isAddingExpense: Bool = false
+    var addExpenseViewModel: AddExpenseViewModel?
 
     private let service: ExpenseService
 
@@ -29,17 +31,6 @@ final class ExpenseListViewModel {
         state = .loading
         Task {
             do {
-                try await fetchExpensesWithCategories()
-            } catch {
-                state = .error(error.localizedDescription)
-            }
-        }
-    }
-
-    func addExpense(amount: Double, date: Date, categoryName: String, note: String?) {
-        Task {
-            do {
-                try await service.addExpense(amount: amount, date: date, categoryName: categoryName, note: note)
                 try await fetchExpensesWithCategories()
             } catch {
                 state = .error(error.localizedDescription)
@@ -63,7 +54,23 @@ final class ExpenseListViewModel {
         if expenses.isEmpty {
             state = .empty
         } else {
-            state = .loaded(expenses)
+            let sorted = expenses.sorted {
+                $0.date > $1.date
+            }
+            state = .loaded(sorted)
+        }
+    }
+
+    func openAddExpenseScreen() {
+        isAddingExpense = true
+        addExpenseViewModel = .init(service: service) {
+            Task {
+                do {
+                    try await self.fetchExpensesWithCategories()
+                } catch {
+                    self.state = .error(error.localizedDescription)
+                }
+            }
         }
     }
 }

@@ -35,8 +35,7 @@ final class DependencyContainer {
 }
 
 // MARK: ViewModel Factory
-@MainActor
-extension DependencyContainer {
+extension DependencyContainer: ViewModelFactory {
     func makeExpenseListViewModel() -> ExpenseListViewModel {
         ExpenseListViewModel(service: expenseService)
     }

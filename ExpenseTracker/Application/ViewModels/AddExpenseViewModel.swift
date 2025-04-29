@@ -1,0 +1,48 @@
+//
+//  AddExpenseViewModel.swift
+//  ExpenseTracker
+//
+//  Created by Vinícius on 29/04/25.
+//
+
+import Foundation
+
+@MainActor
+@Observable
+final class AddExpenseViewModel {
+    var amountString: String = ""
+    var categoryName: String = ""
+    var date: Date = .init()
+    var note: String = ""
+    var errorMessage: String?
+
+    private let service: ExpenseService
+    private let completion: () -> Void
+
+    init(service: ExpenseService, completion: @escaping () -> Void) {
+        self.service = service
+        self.completion = completion
+    }
+
+    func submit(dismiss: @escaping () -> Void) {
+        guard let amount = Double(amountString), amount > 0 else {
+            errorMessage = "Invalid amount"
+            return
+        }
+
+        Task {
+            do {
+                try await service.addExpense(
+                    amount: amount,
+                    date: date,
+                    categoryName: categoryName,
+                    note: note.isEmpty ? nil : note
+                )
+                completion()
+                dismiss()
+            } catch {
+                errorMessage = "Failed to add expense"
+            }
+        }
+    }
+}

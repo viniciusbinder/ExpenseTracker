@@ -30,7 +30,10 @@ final class CategoryListViewModel {
         Task {
             do {
                 let categories = try await service.loadCategoriesWithExpenses()
-                state = .loaded(categories)
+                let sorted = categories.sorted {
+                    $0.totalExpense > $1.totalExpense
+                }
+                state = .loaded(sorted)
             } catch {
                 state = .error(error.localizedDescription)
             }

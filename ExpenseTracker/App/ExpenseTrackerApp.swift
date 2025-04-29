@@ -9,11 +9,11 @@ import SwiftUI
 
 @main
 struct ExpenseTrackerApp: App {
-    private let dependencies: DependencyContainer = .init()
+    private let container: DependencyContainer = .init()
 
     var body: some Scene {
         WindowGroup {
-            HomeScreen(dependencies: dependencies)
+            HomeScreen(factory: container)
         }
     }
 }
