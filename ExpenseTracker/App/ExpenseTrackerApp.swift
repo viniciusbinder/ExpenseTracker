@@ -11,7 +11,7 @@ import SwiftUI
 struct ExpenseTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ExpenseListScreen(viewModel: .init(service: .mock()))
         }
     }
 }

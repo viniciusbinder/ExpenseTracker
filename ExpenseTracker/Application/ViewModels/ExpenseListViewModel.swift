@@ -14,10 +14,10 @@ final class ExpenseListViewModel {
         case empty
         case loading
         case error(String)
-        case loaded([Expense])
+        case loaded([ExpenseWithCategory])
     }
 
-    private(set) var state: State = .empty
+    var state: State = .empty
 
     private let service: ExpenseService
 
@@ -29,8 +29,7 @@ final class ExpenseListViewModel {
         state = .loading
         Task {
             do {
-                let expenses = try await service.fetchExpenses()
-                state = .loaded(expenses)
+                try await fetchExpensesWithCategories()
             } catch {
                 state = .error(error.localizedDescription)
             }
@@ -41,8 +40,7 @@ final class ExpenseListViewModel {
         Task {
             do {
                 try await service.addExpense(amount: amount, date: date, categoryName: categoryName, note: note)
-                let expenses = try await service.fetchExpenses()
-                state = .loaded(expenses)
+                try await fetchExpensesWithCategories()
             } catch {
                 state = .error(error.localizedDescription)
             }
@@ -53,11 +51,19 @@ final class ExpenseListViewModel {
         Task {
             do {
                 try await service.deleteExpense(by: id)
-                let expenses = try await service.fetchExpenses()
-                state = .loaded(expenses)
+                try await fetchExpensesWithCategories()
             } catch {
                 state = .error(error.localizedDescription)
             }
+        }
+    }
+
+    private func fetchExpensesWithCategories() async throws {
+        let expenses = try await service.fetchExpensesWithCategories()
+        if expenses.isEmpty {
+            state = .empty
+        } else {
+            state = .loaded(expenses)
         }
     }
 }

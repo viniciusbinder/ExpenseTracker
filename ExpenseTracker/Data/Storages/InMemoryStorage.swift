@@ -8,8 +8,13 @@
 import Foundation
 
 final class InMemoryStorage {
-    private var expenses: [ExpenseDTO] = []
-    private var categories: [CategoryDTO] = []
+    private var expenses: [ExpenseDTO]
+    private var categories: [CategoryDTO]
+
+    init(expenses: [ExpenseDTO] = [], categories: [CategoryDTO] = []) {
+        self.expenses = expenses
+        self.categories = categories
+    }
 }
 
 // MARK: - ExpenseDataSource

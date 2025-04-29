@@ -16,8 +16,23 @@ final class ExpenseService {
         self.categoryRepository = categoryRepository
     }
 
-    func fetchExpenses() async throws -> [Expense] {
-        try await expenseRepository.fetchAll()
+    func fetchExpensesWithCategories() async throws -> [ExpenseWithCategory] {
+        async let fetchCategories = categoryRepository.fetchAll()
+        async let fetchExpenses = expenseRepository.fetchAll()
+        let (categories, expenses) = try await (fetchCategories, fetchExpenses)
+
+        let categoriesById = Dictionary(uniqueKeysWithValues: categories.map { ($0.id, $0) })
+
+        return expenses.compactMap { expense in
+            guard let category = categoriesById[expense.categoryId] else { return nil }
+            return ExpenseWithCategory(
+                id: expense.id,
+                amount: expense.amount,
+                date: expense.date,
+                category: category,
+                note: expense.note
+            )
+        }
     }
 
     func addExpense(amount: Double, date: Date, categoryName: String, note: String?) async throws {
