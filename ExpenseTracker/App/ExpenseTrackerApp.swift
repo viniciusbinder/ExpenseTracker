@@ -9,9 +9,21 @@ import SwiftUI
 
 @main
 struct ExpenseTrackerApp: App {
+    private let dependencies: DependencyContainer = .init()
+
     var body: some Scene {
         WindowGroup {
-            ExpenseListScreen(viewModel: .init(service: .mock()))
+            TabView {
+                ExpenseListScreen(viewModel: dependencies.makeExpenseListViewModel())
+                    .tabItem {
+                        Label("Expenses", systemImage: "list.bullet")
+                    }
+
+                CategoryListScreen(viewModel: dependencies.makeCategoryListViewModel())
+                    .tabItem {
+                        Label("Categories", systemImage: "folder")
+                    }
+            }
         }
     }
 }
