@@ -27,10 +27,8 @@ struct ExpenseListScreen: View {
                 .task {
                     await viewModel.loadExpenses()
                 }
-                .sheet(isPresented: $viewModel.isAddingExpense) {
-                    if let addExpenseViewModel = viewModel.addExpenseViewModel {
-                        AddExpenseScreen(viewModel: addExpenseViewModel)
-                    }
+                .sheet(item: $viewModel.addExpenseViewModel) { viewModel in
+                    AddExpenseScreen(viewModel: viewModel)
                 }
         }
     }
@@ -45,22 +43,27 @@ struct ExpenseListScreen: View {
         case .error(let errorMessage):
             Text(errorMessage).foregroundColor(.red)
         case .loaded(let expenses):
-            List {
-                ForEach(expenses) { expense in
-                    ExpenseRow(expense: expense)
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                Task {
-                                    await viewModel.deleteExpense(id: expense.id)
-                                }
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                        }
-                }
-            }
-            .animation(.easeInOut, value: expenses)
+            list(expenses)
         }
+    }
+
+    @ViewBuilder
+    func list(_ expenses: [ExpenseWithCategory]) -> some View {
+        List {
+            ForEach(expenses) { expense in
+                ExpenseRow(expense: expense)
+                    .swipeActions {
+                        Button(role: .destructive) {
+                            Task {
+                                await viewModel.deleteExpense(id: expense.id)
+                            }
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                    }
+            }
+        }
+        .animation(.easeInOut, value: expenses)
     }
 }
 

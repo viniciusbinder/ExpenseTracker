@@ -9,7 +9,9 @@ import Foundation
 
 @MainActor
 @Observable
-final class AddExpenseViewModel {
+final class AddExpenseViewModel: Identifiable {
+    let id = UUID()
+
     var amountString: String = ""
     var categoryName: String = ""
     var date: Date = .init()
@@ -17,9 +19,9 @@ final class AddExpenseViewModel {
     var errorMessage: String?
 
     private let service: ExpenseService
-    private let completion: () -> Void
+    private let completion: () async -> Void
 
-    init(service: ExpenseService, completion: @escaping () -> Void) {
+    init(service: ExpenseService, completion: @escaping () async -> Void) {
         self.service = service
         self.completion = completion
     }
@@ -37,7 +39,7 @@ final class AddExpenseViewModel {
                 categoryName: categoryName,
                 note: note.isEmpty ? nil : note
             )
-            completion()
+            await completion()
             dismiss()
         } catch {
             errorMessage = "Failed to add expense"

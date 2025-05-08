@@ -18,13 +18,31 @@ final class ExpenseListViewModel {
     }
 
     var state: State = .empty
-    var isAddingExpense: Bool = false
     var addExpenseViewModel: AddExpenseViewModel?
 
     private let service: ExpenseService
 
     init(service: ExpenseService) {
         self.service = service
+    }
+
+    func loadExpenses() async {
+        state = .loading
+        await reloadData()
+    }
+
+    func deleteExpense(id: UUID) async {
+        do {
+            try await service.deleteExpense(by: id)
+        } catch {
+            state = .error(error.localizedDescription)
+        }
+
+        await reloadData()
+    }
+
+    func openAddExpenseScreen() {
+        addExpenseViewModel = .init(service: service, completion: reloadData)
     }
 
     private func fetchExpensesWithCategories() async throws {
@@ -39,35 +57,11 @@ final class ExpenseListViewModel {
         }
     }
 
-    func loadExpenses() async {
-        state = .loading
+    private func reloadData() async {
         do {
             try await fetchExpensesWithCategories()
         } catch {
             state = .error(error.localizedDescription)
-        }
-    }
-
-    func deleteExpense(id: UUID) async {
-        do {
-            try await service.deleteExpense(by: id)
-            try await fetchExpensesWithCategories()
-        } catch {
-            state = .error(error.localizedDescription)
-        }
-    }
-
-    func openAddExpenseScreen() {
-        isAddingExpense = true
-        addExpenseViewModel = .init(service: service) {
-            Task { [unowned self] in
-                do {
-                    try await self.fetchExpensesWithCategories()
-                } catch {
-                    self.state = .error(error.localizedDescription)
-                }
-                self.addExpenseViewModel = nil
-            }
         }
     }
 }
