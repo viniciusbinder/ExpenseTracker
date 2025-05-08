@@ -10,22 +10,10 @@ import Foundation
 import Testing
 
 struct ExpenseRepositoryTests {
-    private var mockedRepository: ExpenseRepository {
-        ExpenseRepositoryImpl(
-            dataSource: InMemoryStorage(
-                expenses: MockData.expenses,
-                categories: MockData.categories
-            )
-        )
-    }
-    
-    private var emptyRepository: ExpenseRepository {
-        ExpenseRepositoryImpl(dataSource: InMemoryStorage())
-    }
-    
     @Test("Fetch stored expenses")
     func fetchExpenses() async throws {
-        let result = try await mockedRepository.fetchAll()
+        let repository: ExpenseRepository = .mock()
+        let result = try await repository.fetchAll()
         
         #expect(result.count == MockData.expenses.count)
         #expect(result.first!.id == MockData.expenses.first!.id)
@@ -33,7 +21,7 @@ struct ExpenseRepositoryTests {
     
     @Test("Save new expense")
     func saveExpense() async throws {
-        let repository = emptyRepository
+        let repository: ExpenseRepository = .empty
         let expense = MockData.expenses.first!.toDomain()
         try await repository.add(expense)
         
@@ -45,7 +33,7 @@ struct ExpenseRepositoryTests {
     
     @Test("Delete stored expense")
     func deleteExpense() async throws {
-        let repository = mockedRepository
+        let repository: ExpenseRepository = .mock()
         let expense = MockData.expenses.first!
         try await repository.delete(by: expense.id)
         
