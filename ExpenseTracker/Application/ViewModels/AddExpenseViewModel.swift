@@ -24,25 +24,23 @@ final class AddExpenseViewModel {
         self.completion = completion
     }
 
-    func submit(dismiss: @escaping () -> Void) {
+    func submit(dismiss: @escaping () -> Void) async {
         guard let amount = Double(amountString), amount > 0 else {
             errorMessage = "Invalid amount"
             return
         }
 
-        Task {
-            do {
-                try await service.addExpense(
-                    amount: amount,
-                    date: date,
-                    categoryName: categoryName,
-                    note: note.isEmpty ? nil : note
-                )
-                completion()
-                dismiss()
-            } catch {
-                errorMessage = "Failed to add expense"
-            }
+        do {
+            try await service.addExpense(
+                amount: amount,
+                date: date,
+                categoryName: categoryName,
+                note: note.isEmpty ? nil : note
+            )
+            completion()
+            dismiss()
+        } catch {
+            errorMessage = "Failed to add expense"
         }
     }
 }

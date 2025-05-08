@@ -24,8 +24,8 @@ struct ExpenseListScreen: View {
                         Image(systemName: "plus")
                     }
                 }
-                .onAppear {
-                    viewModel.loadExpenses()
+                .task {
+                    await viewModel.loadExpenses()
                 }
                 .sheet(isPresented: $viewModel.isAddingExpense) {
                     if let addExpenseViewModel = viewModel.addExpenseViewModel {
@@ -50,7 +50,9 @@ struct ExpenseListScreen: View {
                     ExpenseRow(expense: expense)
                         .swipeActions {
                             Button(role: .destructive) {
-                                viewModel.deleteExpense(id: expense.id)
+                                Task {
+                                    await viewModel.deleteExpense(id: expense.id)
+                                }
                             } label: {
                                 Label("Delete", systemImage: "trash")
                             }

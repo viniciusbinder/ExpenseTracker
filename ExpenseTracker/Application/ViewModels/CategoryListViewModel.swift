@@ -25,18 +25,16 @@ final class CategoryListViewModel {
         self.service = service
     }
 
-    func loadCategories() {
+    func loadCategories() async {
         state = .loading
-        Task {
-            do {
-                let categories = try await service.loadCategoriesWithExpenses()
-                let sorted = categories.sorted {
-                    $0.totalExpense > $1.totalExpense
-                }
-                state = .loaded(sorted)
-            } catch {
-                state = .error(error.localizedDescription)
+        do {
+            let categories = try await service.loadCategoriesWithExpenses()
+            let sorted = categories.sorted {
+                $0.totalExpense > $1.totalExpense
             }
+            state = .loaded(sorted)
+        } catch {
+            state = .error(error.localizedDescription)
         }
     }
 }

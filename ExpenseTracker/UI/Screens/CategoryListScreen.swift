@@ -19,8 +19,8 @@ struct CategoryListScreen: View {
             content
                 .navigationTitle("Categories")
                 .toolbarTitleDisplayMode(.inline)
-                .onAppear {
-                    viewModel.loadCategories()
+                .task {
+                    await viewModel.loadCategories()
                 }
         }
     }

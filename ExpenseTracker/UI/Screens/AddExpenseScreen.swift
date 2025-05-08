@@ -40,8 +40,10 @@ struct AddExpenseScreen: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        viewModel.submit {
-                            dismiss()
+                        Task {
+                            await viewModel.submit {
+                                dismiss()
+                            }
                         }
                     }
                 }
